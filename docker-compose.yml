@@ -1,0 +1,43 @@
+services:
+  express-app:
+    build:
+      context: ./express_supa
+    ports:
+      - "3000:3000"
+    secrets:
+      - hound_stt_id
+      - hound_stt_key
+      - hound_tts_id
+      - hound_tts_key
+      - secret_encryption_key
+      - session_secret
+      - supabase_key
+      - supabase_url
+    depends_on:
+      - fastapi-app
+
+  fastapi-app:
+    build:
+      context: ./fastapi-langgraph
+    secrets:
+      - openai_api_key
+
+secrets:
+  hound_stt_id:
+    file: ./secrets/hound_stt_id
+  hound_stt_key:
+    file: ./secrets/hound_stt_key
+  hound_tts_id:
+    file: ./secrets/hound_tts_id
+  hound_tts_key:
+    file: ./secrets/hound_tts_key
+  secret_encryption_key:
+    file: ./secrets/secret_encryption_key
+  session_secret:
+    file: ./secrets/session_secret
+  supabase_key:
+    file: ./secrets/supabase_key
+  supabase_url:
+    file: ./secrets/supabase_url
+  openai_api_key:
+    file: ./secrets/openai_api_key

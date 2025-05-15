@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Admin</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-light">
+    <!-- Navigation Bar (from dashboard) -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand text-white" href="/dashboard">Home</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/dashboard">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/user-admin">User Admin</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/chatbot-admin"
+                >Chatbot Admin</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <h2>User Admin</h2>
+      <p>This page allows you to manage users and their roles.</p>
+
+      <!-- Add New User Button -->
+      <button
+        class="btn btn-success mb-3"
+        data-bs-toggle="modal"
+        data-bs-target="#addUserModal"
+      >
+        Add New User
+      </button>
+
+      <!-- User Table -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Allowed Models</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% userData.forEach(user => { %>
+          <tr>
+            <td><%= user.email %></td>
+            <td><%= user.role %></td>
+            <td><%= user.allowed_chatbots.length %> chatbots</td>
+            <td>
+              <!-- Edit Button (Placeholder) -->
+              <button
+                class="btn btn-warning"
+                data-bs-toggle="modal"
+                data-bs-target="#editUser<%= user.user_id %>"
+              >
+                Edit
+              </button>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+
+      <!-- Modal for Adding New User -->
+      <div
+        class="modal fade"
+        id="addUserModal"
+        tabindex="-1"
+        aria-labelledby="addUserModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <!-- New User Form (Placeholder) -->
+              <form method="post" action="/add-user">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="role" class="form-label">Role</label>
+                  <select class="form-select" name="role" required>
+                    <option value="User">User</option>
+                    <option value="Admin">Admin</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="allowedChatbots" class="form-label"
+                    >Allowed Chatbots</label
+                  >
+                  <select
+                    class="form-select"
+                    name="allowedChatbots"
+                    multiple
+                    required
+                  >
+                    <% chatbotsData.forEach(chatbot => { %>
+                    <option value="<%= chatbot.name %>">
+                      <%= chatbot.name %>
+                    </option>
+                    <% }); %>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Add User</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <% userData.forEach(user => { %>
+      <!-- Modal for Editing User (Placeholder) -->
+      <div
+        class="modal fade"
+        id="editUser<%= user.user_id %>"
+        tabindex="-1"
+        aria-labelledby="editUserModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <!-- Edit User Form (Placeholder) -->
+              <form method="POST" action="/edit-user/<%= user.user_id %>">
+                <div class="mb-3">
+                  <label for="editEmail" class="form-label"
+                    >Email (READ ONLY!):</label
+                  >
+                  <p><%= user.email %></p>
+                </div>
+                <div class="mb-3">
+                  <label for="editRole" class="form-label">Role</label>
+                  <select class="form-select" name="role" required>
+                    <option value="User" <%= user.role === 'User' ? 'selected' : '' %>>User</option>
+                    <option value="Admin" <%= user.role === 'Admin' ? 'selected' : '' %>>Admin</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Allowed Chatbots</label>
+                  <select class="form-select" name="allowedChatbots" multiple>
+                      <% chatbotsData.forEach(chatbot => { %>
+                          <option 
+                              value="<%= chatbot.id %>" 
+                              <%= user.allowed_chatbots.includes(chatbot.id.toString()) ? 'selected' : '' %>>
+                              <%= chatbot.name %>
+                          </option>
+                      <% }) %>
+                  </select>
+              </div>
+                <button type="submit" class="btn btn-primary">
+                  Save Changes
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
