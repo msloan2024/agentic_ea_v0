@@ -15,3 +15,9 @@ Add the following files (name them exactly like so):
 - session_secret
 - supabase_key
 - supabse_url
+
+
+To start the application, run:
+
+docker compose build
+docker compose up
