@@ -12,7 +12,15 @@ const PORT = 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+/* This is for PRODUCTION!!!*/
 const sessionSecret = fs.readFileSync('/run/secrets/session_secret', 'utf8').trim();
+
+
+/* BELOW 2 lines are for DEV!!!
+const sessionSecretPath = path.join(__dirname, '..', 'secrets', 'session_secret');
+const sessionSecret = fs.readFileSync(sessionSecretPath, 'utf8').trim();
+*/
+
 app.use(
     session({
         secret: sessionSecret,
@@ -34,7 +42,8 @@ const userRoutes = require('./routes/userRoutes');
 const chatbotRoutes = require('./routes/chatbotRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const houndifyRoutes = require('./routes/houndifyRoutes');
-const agentRoutes = require('./routes/agentRoutes');
+const wallboardRoutes = require('./routes/wallboardRoutes');
+const metroclickRoutes = require('./routes/metroclickRoutes');
 
 // Middleware to use the routes
 app.use('/', authRoutes);
@@ -42,7 +51,8 @@ app.use('/', userRoutes);
 app.use('/', chatbotRoutes);
 app.use('/', dashboardRoutes);
 app.use('/', houndifyRoutes);
-app.use('/', agentRoutes);
+app.use('/', wallboardRoutes);
+app.use('/', metroclickRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);

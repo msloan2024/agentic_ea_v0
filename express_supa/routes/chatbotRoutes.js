@@ -41,7 +41,8 @@ router.post("/add-chatbot", async (req, res) => {
         actionType, 
         fullConvoConfig, 
         keywordConfig, 
-        customConfig } = req.body;
+        customConfig,
+        metroclick_keywords } = req.body;
 
     const encryptionDetails = encrypt(clientKey);
 
@@ -58,7 +59,8 @@ router.post("/add-chatbot", async (req, res) => {
                 preview_url: previewUrl, 
                 action_type: actionType,
                 full_convo_config: fullConvoConfig,
-                keyword_config: JSON.parse(keywordConfig)
+                keyword_config: Array(keywordConfig),
+                metroclick_keywords: metroclick_keywords
             })
 
         if (error) throw error;
@@ -85,7 +87,8 @@ router.post("/edit-chatbot/:id", async (req, res) => {
         actionType, 
         fullConvoConfig, 
         keywordConfig, 
-        customConfig 
+        customConfig,
+        metroclick_keywords 
     } = req.body;
 
     try {
@@ -97,8 +100,9 @@ router.post("/edit-chatbot/:id", async (req, res) => {
                 model_name: modelName,
                 preview_url: previewUrl,
                 action_type: actionType,
-                full_convo_config: JSON.parse(fullConvoConfig),
-                keyword_config: JSON.parse(keywordConfig),
+                full_convo_config: fullConvoConfig,
+                keyword_config: Array(keywordConfig),
+                metroclick_keywords: metroclick_keywords
                 // custom_config: customConfig
             })
             .eq("id", id);

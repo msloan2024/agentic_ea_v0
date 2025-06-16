@@ -3,18 +3,21 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from langchain_openai import ChatOpenAI
-from dotenv import load_dotenv
-import os
 from langchain_core.prompts import PromptTemplate
 from langchain_core.tools import tool
 from pydantic import BaseModel, Field
 import requests
 from langchain_core.output_parsers import JsonOutputParser
 
-# load_dotenv()
+'''
+This is how you access your secrets in DEV
 
+with open("../secrets/openai_api_key", "r") as f:
+    openai_api_key = f.read().strip()
 
-# openai_api_key = os.getenv("OPENAI_API_KEY")
+'''
+
+'''Below is how you access your secrets in PROD'''
 
 with open("/run/secrets/openai_api_key", "r") as f:
     openai_api_key = f.read().strip()

@@ -18,6 +18,12 @@ body {
     padding: 1.5rem;
   }
 
+  .chat-header-diy {
+    background: linear-gradient(135deg, #ff6b35, #fab197);
+    color: white;
+    padding: 1.5rem;
+  }
+
   .chat-body {
     height: 65vh;
     overflow-y: auto;
@@ -47,6 +53,10 @@ body {
     flex-direction: row-reverse;
   }
 
+  .system-diy {
+    flex-direction: row-reverse;
+  }
+
   .system .avatar {
     margin-left: 1rem;
   }
@@ -59,6 +69,12 @@ body {
 
   .system .message-content {
     background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    border-top-right-radius: 0.2rem;
+  }
+
+  .system-diy .message-content {
+    background: linear-gradient(135deg, #ff6b35, #fab197);
     color: white;
     border-top-right-radius: 0.2rem;
   }
@@ -78,8 +94,16 @@ body {
     background-color: #3498db;
   }
 
+  .user-diy .avatar {
+    background-color: #313130;
+  }
+
   .system .avatar {
     background-color: #9b59b6;
+  }
+
+   .system-diy .avatar {
+    background-color: #ff6b35;
   }
 
   .typing-indicator {

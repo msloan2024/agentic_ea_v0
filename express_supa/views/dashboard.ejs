@@ -85,9 +85,13 @@
 <div id="chatbotLinks" class="mb-3" style="display: none;">
   <a id="internalLink" href="#" target="_blank" class="btn btn-primary me-2">Start Chat</a>
   <a id="externalLink" href="#" target="_blank" class="btn btn-secondary">Preview URL</a>
-  <a id="agentLink" href="#" target="_blank" class="btn btn-warning">Agent Chat</a>
 </div>
   
+<!-- Always visible on page load -->
+<div id="alwaysVisibleLinks" class="mb-3">
+  <a id="wallboardLink" href="wallboard" target="_blank" class="btn btn-warning">WB demo</a>
+  <a id="metroclickLink" href="metroclick" target="_blank" class="btn btn-info">MC demo</a>
+</div>
 
 </div>
 </div>
@@ -96,7 +100,6 @@
       const linksContainer = document.getElementById('chatbotLinks');
       const internalLink = document.getElementById('internalLink');
       const externalLink = document.getElementById('externalLink');
-      const agentLink = document.getElementById('agentLink');
       let previewUrl;
 
       async function selectChatbot() {
@@ -113,7 +116,6 @@
           if (selectedId) {
             internalLink.href = 'startChat';
             externalLink.href = previewUrl;
-            agentLink.href = 'agentChat';
 
             linksContainer.style.display = "block";
           } else {

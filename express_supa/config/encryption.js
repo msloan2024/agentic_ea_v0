@@ -1,7 +1,17 @@
 const crypto = require('crypto');
 const fs = require('fs');
 
+/* This is for PRODUCTION!!! */
+
 const secretEncryptionKey = fs.readFileSync('/run/secrets/secret_encryption_key', 'utf8').trim();
+
+/* The below 3 lines are for DEV!!!
+
+const path = require('path');
+const secretPath1 = path.join(__dirname, '..', '..', 'secrets', 'secret_encryption_key');
+const secretEncryptionKey = fs.readFileSync(secretPath1, 'utf8').trim();
+*/
+
 const algorithm = 'aes-256-gcm'; 
 
 function encrypt(text) {
