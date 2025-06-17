@@ -13,6 +13,7 @@ services:
       - session_secret
       - supabase_key
       - supabase_url
+      - diy_depot_client_key
     depends_on:
       - fastapi-app
 
@@ -39,5 +40,7 @@ secrets:
     file: ./secrets/supabase_key
   supabase_url:
     file: ./secrets/supabase_url
+  diy_depot_client_key:
+    file: ./secrets/diy_depot_client_key
   openai_api_key:
     file: ./secrets/openai_api_key
